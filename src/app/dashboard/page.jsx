@@ -1,5 +1,6 @@
 "use client";
 import { useSession, signOut } from "@/lib/auth/auth-client";
+import NavbarUser from "@/components/navbar/NavbarUser";
 
 export default function Dashboard() {
   const { data: session, isPending } = useSession();
@@ -18,17 +19,20 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
-      <p>Bienvenue, {session.user.name}!</p>
-      <p>Email: {session.user.email}</p>
+    <>
+      <NavbarUser />
+      <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
+        <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+        <p>Bienvenue, {session.user.name}!</p>
+        <p>Email: {session.user.email}</p>
 
-      <button
-        onClick={handleSignOut}
-        className="mt-4 bg-red-500 text-white p-2 rounded-md hover:bg-red-600"
-      >
-        Se déconnecter
-      </button>
-    </div>
+        <button
+          onClick={handleSignOut}
+          className="mt-4 bg-red-500 text-white p-2 rounded-md hover:bg-red-600"
+        >
+          Se déconnecter
+        </button>
+      </div>
+    </>
   );
 }

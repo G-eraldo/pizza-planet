@@ -26,6 +26,10 @@ export async function signUp(prevState, formData) {
         password,
       },
     });
+    return {
+      success: true,
+      message: "Inscription réussie ! Vous pouvez maintenant vous connecter.",
+    };
   } catch (error) {
     console.error("Erreur BetterAuth:", error);
 
@@ -42,7 +46,6 @@ export async function signUp(prevState, formData) {
 
     return { errorMessage: "Une erreur inattendue est survenue" };
   }
-  redirect("/se-connecter");
 }
 
 export async function signIn(prevState, formData) {

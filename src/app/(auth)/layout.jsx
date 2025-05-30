@@ -1,12 +1,15 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import Navbar from "@/components/navbar/Navbar";
 
 export default function layout({ children }) {
   return (
     <>
+      <Navbar />
       <div>
-        <button className="btn btn-accent ml-4 mt-10">
+        <Button variant="outline" className="ml-4 mt-10">
           <Link href="/">Retour</Link>
-        </button>
+        </Button>
         {children}
       </div>
     </>

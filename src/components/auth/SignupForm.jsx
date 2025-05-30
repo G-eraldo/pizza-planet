@@ -1,23 +1,28 @@
 "use client";
 
-import { LogoIcon } from "../Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signUp } from "@/lib/auth/action";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
+import { LogoIcon } from "../Logo";
 
 export default function SignupForm() {
+  const router = useRouter();
   const initialState = { errorMessage: "" };
   const [state, formAction, pending] = useActionState(signUp, initialState);
 
   useEffect(() => {
     if (state.errorMessage?.length) {
       toast.error(state.errorMessage);
+    } else if (state.success) {
+      toast.success(state.message);
+      router.push("/se-connecter");
     }
-  }, [state.errorMessage]);
+  }, [state.errorMessage, router]);
   return (
     <div>
       <section className="flex min-h-screen  px-4 py-16 md:py-20">
