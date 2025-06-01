@@ -1,12 +1,34 @@
-import React from "react";
-import { useSession } from "@/lib/auth/auth-client";
-import Link from "next/link";
+"use client";
 import Signout from "@/components/auth/Signout";
+import { Button } from "@/components/ui/button";
+import { useSession } from "@/lib/auth/auth-client";
+import { UserRoundCog } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 export default function NavbarUser() {
+  const [isOpen, setIsOpen] = useState(false);
   const { data: session } = useSession();
+  const dropdownRef = useRef(null);
+
   const user = session?.user;
 
+  function handleMenuClick() {
+    setIsOpen(!isOpen);
+  }
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   return (
     <div>
       <div className="navbar bg-base-100 shadow-sm">
@@ -16,22 +38,29 @@ export default function NavbarUser() {
           </Link>
         </div>
         <div className="flex-none">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1 gap-2">
             <li>
-              <Link href="/">Commander</Link>
+              <Button variant="outline">
+                <Link href="/">Commander</Link>
+              </Button>
             </li>
             <li>
-              <details>
-                <summary>{user.email}</summary>
-                <ul className="bg-base-100 rounded-t-none p-2">
-                  <li>
-                    <Link href="/mon-compte">Mon compte</Link>
+              <Button onClick={handleMenuClick}>{user.email}</Button>
+              {isOpen && (
+                <ul
+                  ref={dropdownRef}
+                  className="bg-white absolute right-0 top-10 w-[250px] shadow-lg rounded-md p-2"
+                >
+                  <li className="my-2">
+                    <Link href="/mon-compte">
+                      <UserRoundCog /> Mon compte
+                    </Link>
                   </li>
-                  <li>
+                  <li className="my-2">
                     <Signout />
                   </li>
                 </ul>
-              </details>
+              )}
             </li>
           </ul>
         </div>

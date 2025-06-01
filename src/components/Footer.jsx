@@ -3,7 +3,7 @@ import { LogoIcon } from "./Logo";
 
 const links = [
   {
-    title: "Acceuil",
+    title: "Accueil",
     href: "/",
   },
   {

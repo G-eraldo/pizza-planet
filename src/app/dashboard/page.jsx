@@ -1,8 +1,12 @@
 "use client";
-import { useSession, signOut } from "@/lib/auth/auth-client";
-import NavbarUser from "@/components/navbar/NavbarUser";
 
-export default function Dashboard() {
+import NavbarUser from "@/components/navbar/NavbarUser";
+import { useSession } from "@/lib/auth/auth-client";
+
+import AdminDashboard from "@/components/AdminDashboard";
+import PizzaCard from "@/components/PizzaCard";
+
+export default function page() {
   const { data: session, isPending } = useSession();
 
   if (isPending) {
@@ -13,26 +17,10 @@ export default function Dashboard() {
     return <div>Vous devez être connecté pour accéder à cette page</div>;
   }
 
-  const handleSignOut = async () => {
-    await signOut();
-    window.location.href = "/";
-  };
-
   return (
     <>
       <NavbarUser />
-      <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
-        <p>Bienvenue, {session.user.name}!</p>
-        <p>Email: {session.user.email}</p>
-
-        <button
-          onClick={handleSignOut}
-          className="mt-4 bg-red-500 text-white p-2 rounded-md hover:bg-red-600"
-        >
-          Se déconnecter
-        </button>
-      </div>
+      {session.user.role === "admin" ? <AdminDashboard /> : <PizzaCard />}
     </>
   );
 }

@@ -10,7 +10,7 @@ export async function middleware(request) {
   });
 
   if (!session) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/se-connecter", request.url));
   }
 
   return NextResponse.next();
