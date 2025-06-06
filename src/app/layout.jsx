@@ -1,4 +1,5 @@
 import Footer from "@/components/Footer";
+
 import { Toaster } from "sonner";
 import "./globals.css";
 
