@@ -5,6 +5,7 @@ import UserDashboard from "@/components/dashboard/UserDashboard";
 import { Toaster } from "sonner";
 import { useSession } from "@/lib/auth/auth-client";
 import { useEffect } from "react";
+import Page from "../mon-compte/page";
 
 export default function page() {
   const { data: session, isPending, refetch } = useSession();
@@ -25,9 +26,5 @@ export default function page() {
     );
   }
 
-  return (
-    <>
-      {session.user.role === "admin" ? <AdminDashboard /> : <UserDashboard />}
-    </>
-  );
+  return <>{session.user.role === "admin" ? <AdminDashboard /> : <Page />}</>;
 }

@@ -1,6 +1,5 @@
 "use client";
 import { useSession, signOut } from "@/lib/auth/auth-client";
-import NavbarUser from "@/components/navbar/NavbarUser";
 
 export default function Page() {
   const { data: session, isPending } = useSession();
@@ -20,7 +19,6 @@ export default function Page() {
 
   return (
     <>
-      <NavbarUser />
       <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
         <p>Bienvenue, {session.user.name}!</p>
