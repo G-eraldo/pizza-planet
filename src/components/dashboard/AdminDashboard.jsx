@@ -1,11 +1,11 @@
 "use client";
 
-import { postPizza } from "@/lib/serverAction/PizzaPost";
+import { postPizza } from "@/lib/serverAction/uploadImage";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import { toast } from "sonner";
-import { Button } from "./ui/button";
-import { Card } from "./ui/card";
-import { Input } from "./ui/input";
+import { Button } from "../ui/button";
+import { Card } from "../ui/card";
+import { Input } from "../ui/input";
 
 export default function AdminDashboard() {
   async function handleSubmit(event) {
@@ -74,12 +74,12 @@ export default function AdminDashboard() {
                 />
               </div>
 
-              {/* <div className="grid w-full items-center gap-3">
+              <div className="grid w-full items-center gap-3">
                 <Label htmlFor="photo" className="text-sm font-medium">
                   Photo de la pizza
                 </Label>
                 <Input name="photo" type="file" className="w-full" />
-              </div> */}
+              </div>
 
               <Button className="w-full mt-4">Ajouter la pizza</Button>
             </form>

@@ -1,10 +1,9 @@
 "use client";
 
+import UserDashboard from "@/components/dashboard/UserDashboard";
 import NavbarUser from "@/components/navbar/NavbarUser";
 import { useSession } from "@/lib/auth/auth-client";
-
-import AdminDashboard from "@/components/AdminDashboard";
-import PizzaCard from "@/components/PizzaCard";
+import AdminDashboard from "@/components/dashboard/AdminDashboard";
 
 export default function page() {
   const { data: session, isPending } = useSession();
@@ -20,7 +19,7 @@ export default function page() {
   return (
     <>
       <NavbarUser />
-      {session.user.role === "admin" ? <AdminDashboard /> : <PizzaCard />}
+      {session.user.role === "admin" ? <AdminDashboard /> : <UserDashboard />}
     </>
   );
 }
