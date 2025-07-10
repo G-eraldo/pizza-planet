@@ -7,7 +7,6 @@ import { Pizza } from "../models/pizza";
 cloudinary.config({
   cloud_url: process.env.CLOUDINARY_URL,
 });
-
 export async function postPizza(formData) {
   const image = formData.get("photo");
   const name = formData.get("name");
@@ -41,7 +40,13 @@ export async function postPizza(formData) {
       image: uploadResult.secure_url,
     });
     const savedPizza = await newPizza.save();
-    const plainPizza = JSON.parse(JSON.stringify(savedPizza));
+
+    // Conversion en objet simple avec _id en string
+    const plainPizza = {
+      ...savedPizza.toObject(),
+      _id: savedPizza._id.toString(),
+    };
+
     return {
       success: true,
       pizza: plainPizza,
@@ -56,10 +61,18 @@ export async function postPizza(formData) {
   }
 }
 
+// Dans ton fichier de server actions (ex: lib/serverAction/uploadImage.js)
 export async function getPizza() {
   try {
     await connectToDB();
-    const pizza = await Pizza.find({});
-    return pizza;
-  } catch (err) {}
+    const pizzas = await Pizza.find({}).lean();
+    // On convertit explicitement _id en string pour chaque pizza
+    return pizzas.map((pizza) => ({
+      ...pizza,
+      _id: pizza._id.toString(),
+    }));
+  } catch (err) {
+    console.error("Erreur lors de la récupération des pizzas :", err);
+    return [];
+  }
 }

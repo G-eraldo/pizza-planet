@@ -1,7 +1,7 @@
 "use client";
 
 import AdminDashboard from "@/components/dashboard/AdminDashboard";
-import UserDashboard from "@/components/dashboard/UserDashboard";
+
 import { Toaster } from "sonner";
 import { useSession } from "@/lib/auth/auth-client";
 import { useEffect } from "react";

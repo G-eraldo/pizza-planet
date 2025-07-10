@@ -11,10 +11,6 @@ const links = [
     href: "#",
   },
   {
-    title: "Mon compte",
-    href: "/mon-compte",
-  },
-  {
     title: "Contact",
     href: "/contact",
   },
